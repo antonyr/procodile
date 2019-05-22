@@ -188,7 +188,9 @@ module Procodile
       update_pid
       if self.running?
         Procodile.log(@process.log_color, description, "Sending #{@process.term_signal} to #{@pid}")
-        ::Process.kill(@process.term_signal, pid)
+        Procodile.log(@process.log_color, description, 'Going to kill all the processes')
+        `pkill -9 -P #{pid}`
+        # ::Process.kill(@process.term_signal, pid)
       else
         Procodile.log(@process.log_color, description, "Process already stopped")
       end
